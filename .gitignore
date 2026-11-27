@@ -1,0 +1,4 @@
+/target
+/gen
+# Local build settings (machine-specific paths)
+/.cargo/config.toml

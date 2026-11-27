@@ -1,0 +1,35 @@
+[package]
+name = "files"
+version = "0.1.0"
+description = "Files, a file explorer for Windows"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["protocol-asset"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+dirs = "5"
+fs2 = "0.4"
+open = "5"
+trash = "5"
+notify = "6"
+drag = "2"
+png = "0.17"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_Storage_FileSystem", "Win32_System_DataExchange", "Win32_System_Memory", "Win32_UI_Shell"] }
+windows = { version = "0.62", features = ["Win32_Foundation", "Win32_UI_Shell", "Win32_UI_Shell_Common", "Win32_System_Com", "Win32_UI_WindowsAndMessaging", "Win32_Graphics_Gdi", "Win32_Storage_FileSystem"] }
+
+[features]
+# Always serve the UI from the embedded `ui` folder (no dev server needed).
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
